@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import HitList from "./components/hits-list.component";
 import { connect } from 'react-redux';
 import { hitAction } from "./actions";
@@ -7,26 +7,22 @@ import HitForm from "./components/form.component";
 import ClearButton from "./components/clear-button.component";
 import LogoutButton from "./components/logout.component";
 
-class Main extends Component {
-
-    componentDidMount() {
-        this.props.dispatch(hitAction.getHits())
-    }
-
-    render() {
-        return (
-            <div className={'app-div'}>
-                <div className={'main-div'}>
-                    <HitForm/>
-                    <Graph/>
-                </div>
-                <LogoutButton/>
-                <ClearButton/>
-                <HitList/>
+const Main = (props) => {
+    useEffect(() => {
+        props.dispatch(hitAction.getHits())
+    })
+    return (
+        <div className={'app-div'}>
+            <div className={'main-div'}>
+                <HitForm/>
+                <Graph/>
             </div>
+            <LogoutButton/>
+            <ClearButton/>
+            <HitList/>
+        </div>
 
-        )
-    }
+    );
 }
 
 export default connect()(Main)
