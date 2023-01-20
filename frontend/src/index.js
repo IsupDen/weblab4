@@ -34,9 +34,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <Provider store={store}>
-        <DeviceSelector>
-            <App/>
-        </DeviceSelector>
+        <App/>
     </Provider>
 );
 

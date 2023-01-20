@@ -19,8 +19,11 @@ import java.util.List;
 @RequestMapping("/hits")
 public class HitController {
 
-    @Autowired
-    HitManager manager;
+    private final HitManager manager;
+
+    public HitController(HitManager manager) {
+        this.manager = manager;
+    }
 
     @PostMapping
     public Hit addHit(@RequestBody HitDto newHit, @RequestAttribute String username, @RequestAttribute LocalDateTime startTime) {

@@ -8,10 +8,6 @@ const RegisterComponent = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    useEffect(() => {
-        userActions.logout();
-    }, [])
-
     const register = (e) => {
         e.preventDefault();
         props.dispatch(userActions.register({
@@ -21,6 +17,8 @@ const RegisterComponent = (props) => {
     }
 
     return (
+        localStorage.getItem("user") ?
+            window.location = '/' :
         <div className={'register-div'}>
             <div className="header">
                 Isupov Denis Vasilievich<br/>
@@ -28,8 +26,8 @@ const RegisterComponent = (props) => {
                 Variant: 3210112
             </div>
             <form className={'form'} onSubmit={register}>
-                <InputText name={'username'} className={'username-input'} value={username} placeholder={"login"} onChange={(e) => setUsername(e.target.value)}/><br/>
-                <InputText name={'password'} className={'password-input'} value={password} type={"password"} placeholder={"password"} onChange={(e) => setPassword(e.target.value)}/><br/>
+                <InputText maxLength={50} name={'username'} className={'username-input'} value={username} placeholder={"login"} onChange={(e) => setUsername(e.target.value)}/><br/>
+                <InputText maxLength={50} name={'password'} className={'password-input'} value={password} type={"password"} placeholder={"password"} onChange={(e) => setPassword(e.target.value)}/><br/>
                 <button className={'submit'} type={"submit"}><span>Register</span><i></i></button><br/>
                 <Link className={'link'} to={'/signin'}>LogIn</Link>
             </form>

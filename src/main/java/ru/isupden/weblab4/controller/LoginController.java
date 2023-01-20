@@ -1,6 +1,5 @@
 package ru.isupden.weblab4.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,17 +10,21 @@ import ru.isupden.weblab4.model.repo.UserRepository;
 import ru.isupden.weblab4.service.UserService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class LoginController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private UserRepository userRepository;
+    private final UserService userService;
+    private final UserRepository userRepository;
+
+    public LoginController(UserService userService, UserRepository userRepository) {
+        this.userService = userService;
+        this.userRepository = userRepository;
+    }
 
     @PostMapping("/register")
-    public ResponseEntity<ArrayList<String>> newUser(@RequestBody UserDto newUser) {
+    public ResponseEntity<List<String>> newUser(@RequestBody UserDto newUser) {
         ArrayList<String> errors = validateUsername(newUser.getUsername());
         errors.addAll(validatePassword(newUser.getPassword()));
         if (errors.isEmpty()) {
@@ -29,6 +32,11 @@ public class LoginController {
             return new ResponseEntity<>( HttpStatus.CREATED );
         }
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/login")
+    public String login() {
+        return "Successful";
     }
 
     private ArrayList<String> validateUsername(String username) {

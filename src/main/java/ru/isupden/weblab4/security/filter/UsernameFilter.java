@@ -1,5 +1,7 @@
 package ru.isupden.weblab4.security.filter;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -7,13 +9,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
-public class TimeFilter extends OncePerRequestFilter {
+public class UsernameFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        request.setAttribute("startTime", LocalDateTime.now(ZoneOffset.UTC));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            request.setAttribute("username", authentication.getName());
+        }
         filterChain.doFilter(request, response);
     }
 }

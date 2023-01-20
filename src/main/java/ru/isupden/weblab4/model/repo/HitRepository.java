@@ -6,5 +6,4 @@ import ru.isupden.weblab4.model.entity.Hit;
 
 @Repository
 public interface HitRepository extends JpaRepository<Hit, Long> {
-
 }

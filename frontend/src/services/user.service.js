@@ -1,5 +1,5 @@
-import {encode as base64_encode} from 'base-64';
 import axios from "axios";
+import {authHeader} from "../util";
 
 export const userService = {
     login,
@@ -7,13 +7,15 @@ export const userService = {
     register,
 };
 
-function login(username, password) {
+function login() {
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json',
+                    ...authHeader()
+        }
     };
-
-    let url =  '/login?username=' + username +  '&password=' + base64_encode(password);
+    console.log(requestOptions);
+    let url =  '/login';
     return axios(url, requestOptions);
 }
 
@@ -23,6 +25,7 @@ function logout() {
 }
 
 function register(user) {
+
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

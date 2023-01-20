@@ -1,5 +1,6 @@
 import {hitService} from "../services";
 import {hitConstants} from "../constants";
+import {userActions} from "./user.actions";
 
 export const hitAction = {
     createHit,
@@ -15,6 +16,7 @@ function createHit(hit) {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
+                    userActions.logout();
                     window.location = '/#/signin';
                 }
             });
@@ -29,6 +31,7 @@ function deleteHits() {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
+                    userActions.logout();
                     window.location = '/#/signin';
                 }
             });
@@ -43,6 +46,7 @@ function getHits() {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
+                    userActions.logout();
                     window.location = '/#/signin';
                 }
             });

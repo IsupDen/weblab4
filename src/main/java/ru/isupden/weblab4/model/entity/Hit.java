@@ -31,6 +31,5 @@ public class Hit {
         this.x = x;
         this.y = y;
         this.r = r;
-        result = false;
     }
 }

@@ -14,6 +14,7 @@ function getHits() {
             ...authHeader()
         }
     };
+    console.log(requestOptions);
     return axios('/hits', requestOptions);
 }
 

@@ -1,5 +1,4 @@
 import React from "react";
-import './css/styles.css';
 import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
@@ -8,6 +7,9 @@ import Main from "./Main";
 import {HashRouter, Route, Routes} from "react-router-dom";
 import Register from "./components/register.component";
 import {connect} from "react-redux";
+import './css/styles.css'
+import './css/style.css'
+
 
 const App = (props) => {
     const { error } = props;

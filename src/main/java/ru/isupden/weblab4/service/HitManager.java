@@ -1,6 +1,5 @@
 package ru.isupden.weblab4.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.isupden.weblab4.model.entity.Hit;
 import ru.isupden.weblab4.controller.dto.HitDto;
@@ -10,19 +9,21 @@ import ru.isupden.weblab4.model.repo.UserRepository;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Service
 public class HitManager {
 
-    @Autowired
-    private HitRepository hitRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private AreaChecker checker;
+    private final HitRepository hitRepository;
+    private final UserRepository userRepository;
+    private final AreaChecker checker;
+
+    public HitManager(HitRepository hitRepository, UserRepository userRepository, AreaChecker checker) {
+        this.hitRepository = hitRepository;
+        this.userRepository = userRepository;
+        this.checker = checker;
+    }
 
     public Hit addHit(HitDto hit, String username, LocalDateTime startTime) {
         Hit newHit = new Hit(hit.getX(), hit.getY(), hit.getR());

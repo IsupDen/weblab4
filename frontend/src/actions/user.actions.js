@@ -8,35 +8,40 @@ export const userActions = {
     register
 };
 
-function login(username, password) {
+function login(user) {
     return dispatch => {
-        userService.login(username, password)
+        localStorage.setItem('user', base64_encode(user.username + ':' + user.password));
+        localStorage.setItem('username', user.username);
+        console.log(localStorage.getItem('user'));
+        userService.login()
             .then(() => {
-                const user = base64_encode(username + ':' + password);
-                localStorage.setItem('user', user);
-                localStorage.setItem('username', username);
                 window.location = '/';
                 dispatch(errorActions.clear());
             })
             .catch(() => {
                 dispatch(errorActions.error(['Wrong username or password']));
+                logout();
             });
     }
 }
 
 function logout() {
+    console.log('logout');
     userService.logout();
 }
 
 function register(user) {
     return dispatch => {
+        localStorage.setItem('user', base64_encode(user.username + ':' + user.password));
+        localStorage.setItem('username', user.username);
         userService.register(user)
             .then(() => {
                 dispatch(errorActions.clear());
-                window.location = '/#/signin';
+                window.location = '/';
             })
             .catch(error => {
                 dispatch(errorActions.error(error.response.data));
+                logout();
             })
     }
 }
